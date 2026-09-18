@@ -18,6 +18,9 @@ Spaces controls, also inside Mission Control:
 - **⌘← / ⌘→** move the selected window to the previous or next Space. There is no public API for this. SpaceControl uses SkyLight's private `SLSBridgedMoveWindowsToManagedSpaceOperation`, which works on macOS 27, and may break in future macOS versions.
 - **⌘⌃← / ⌘⌃→** move the selected window to the previous or next Space and switch to that Space, with the window still selected. Press it again to carry the window further, for example from Space 1 to Space 3.
 
+These are the default shortcuts. All of them can be changed in **Settings…** (menu-bar icon → Settings…, or ⌘,),
+which also lets you hide the menu-bar icon. While the icon is hidden, launch SpaceControl again to open Settings.
+
 ## Requirements
 
 Tested on macOS 27. The app reads Mission Control through its accessibility tree,

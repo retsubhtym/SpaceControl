@@ -1,4 +1,5 @@
 import Cocoa
+import Combine
 
 @main
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -7,9 +8,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var permissionMenuItem: NSMenuItem!
     private var permissionTimer: Timer?
 
+    private let settings = AppSettings.shared
+    private let settingsWindow = SettingsWindowController()
+    private var statusItemObserver: AnyCancellable?
+
     private let monitor = MissionControlMonitor()
     private lazy var controller = MissionControlController(monitor: monitor)
-    private lazy var keyboard = KeyboardInterceptor(controller: controller)
+    private lazy var keyboard = KeyboardInterceptor(controller: controller, settings: settings)
 
     static func main() {
         let app = NSApplication.shared
@@ -21,6 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setUpStatusItem()
+        setUpMainMenu()
 
         if Accessibility.isTrusted(prompt: true) {
             start()
@@ -33,6 +39,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         updateMenu()
+    }
+
+    /// Launching the app again (Finder, Spotlight, Launchpad) opens Settings, the way back when the icon is hidden.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        settingsWindow.show()
+        return true
     }
 
     private func start() {
@@ -62,20 +74,48 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(permissionMenuItem)
 
         menu.addItem(.separator())
-        for line in [
-            "In Mission Control:",
-            "←↑↓→ / hjkl select · ⏎ open · ⌘W close · ⌘M minimize · ⌘H hide · ⌘Q quit",
-            "⌘N new Space · ⌘1…⌘0 go to Space · ⌘← / ⌘→ move window to Space · ⌘⌃← / ⌘⌃→ move and follow",
-        ] {
-            let help = NSMenuItem(title: line, action: nil, keyEquivalent: "")
-            help.isEnabled = false
-            menu.addItem(help)
-        }
+        let settingsItem = NSMenuItem(title: "Settings…", action: #selector(openSettings), keyEquivalent: ",")
+        settingsItem.target = self
+        menu.addItem(settingsItem)
         menu.addItem(.separator())
 
         let quit = NSMenuItem(title: "Quit SpaceControl", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
         statusItem.menu = menu
+
+        statusItemObserver = settings.$showStatusItem.sink { [weak self] isShown in
+            self?.statusItem.isVisible = isShown
+        }
+    }
+
+    /// The menu bar shown while Settings is open and the app is a regular app.
+    private func setUpMainMenu() {
+        let appMenu = NSMenu()
+        appMenu.addItem(withTitle: "About SpaceControl", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        appMenu.addItem(.separator())
+        let settingsItem = appMenu.addItem(withTitle: "Settings…", action: #selector(openSettings), keyEquivalent: ",")
+        settingsItem.target = self
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Hide SpaceControl", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        let hideOthers = appMenu.addItem(withTitle: "Hide Others", action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")
+        hideOthers.keyEquivalentModifierMask = [.command, .option]
+        appMenu.addItem(withTitle: "Show All", action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: "")
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Quit SpaceControl", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+
+        let windowMenu = NSMenu(title: "Window")
+        windowMenu.addItem(withTitle: "Minimize", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
+        windowMenu.addItem(withTitle: "Close", action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
+
+        let mainMenu = NSMenu()
+        mainMenu.addItem(withTitle: "SpaceControl", action: nil, keyEquivalent: "").submenu = appMenu
+        mainMenu.addItem(withTitle: "Window", action: nil, keyEquivalent: "").submenu = windowMenu
+        NSApp.mainMenu = mainMenu
+        NSApp.windowsMenu = windowMenu
+    }
+
+    @objc private func openSettings() {
+        settingsWindow.show()
     }
 
     private func updateMenu() {
