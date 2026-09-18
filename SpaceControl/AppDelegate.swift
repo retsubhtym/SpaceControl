@@ -45,7 +45,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func setUpStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem.button?.image = NSImage(systemSymbolName: "rectangle.3.group", accessibilityDescription: "SpaceControl")
+        // Template image: macOS tints it for light/dark menu bars and the highlighted state.
+        let icon = NSImage(named: "StatusBarIcon")
+            ?? NSImage(systemSymbolName: "rectangle.3.group", accessibilityDescription: nil)
+        icon?.isTemplate = true
+        icon?.accessibilityDescription = "SpaceControl"
+        statusItem.button?.image = icon
 
         let menu = NSMenu()
         enabledMenuItem = NSMenuItem(title: "Enabled", action: #selector(toggleEnabled), keyEquivalent: "")
@@ -57,9 +62,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(permissionMenuItem)
 
         menu.addItem(.separator())
-        let help = NSMenuItem(title: "In Mission Control: ←↑↓→ / hjkl select · ⏎ open · ⌘W close · ⌘M minimize · ⌘H hide · ⌘Q quit", action: nil, keyEquivalent: "")
-        help.isEnabled = false
-        menu.addItem(help)
+        for line in [
+            "In Mission Control:",
+            "←↑↓→ / hjkl select · ⏎ open · ⌘W close · ⌘M minimize · ⌘H hide · ⌘Q quit",
+            "⌘N new Space · ⌘1…⌘0 go to Space · ⌘← / ⌘→ move window to Space · ⌘⌃← / ⌘⌃→ move and follow",
+        ] {
+            let help = NSMenuItem(title: line, action: nil, keyEquivalent: "")
+            help.isEnabled = false
+            menu.addItem(help)
+        }
         menu.addItem(.separator())
 
         let quit = NSMenuItem(title: "Quit SpaceControl", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")

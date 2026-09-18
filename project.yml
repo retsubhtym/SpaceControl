@@ -35,6 +35,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: local.spacecontrol.SpaceControl
         PRODUCT_NAME: SpaceControl
         GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         # Local-only ("Sign to Run Locally") signing: no Apple Developer account required.
         # Set on the target so it overrides XcodeGen's default "Apple Development" identity.
         # To keep the Accessibility permission across rebuilds, create a self-signed

@@ -51,6 +51,23 @@ extension AXUIElement {
     }
 }
 
+extension NSScreen {
+    var displayID: CGDirectDisplayID? {
+        (deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber).map { CGDirectDisplayID($0.uint32Value) }
+    }
+
+    /// The screen containing a point in AX/CoreGraphics (top-left origin) global coordinates.
+    static func containing(globalPoint point: CGPoint) -> NSScreen? {
+        let cocoaPoint = CGRect(origin: point, size: .zero).flippedToCocoa.origin
+        return screens.first { NSMouseInRect(cocoaPoint, $0.frame, false) }
+    }
+
+    /// The screen under the mouse cursor.
+    static var underMouse: NSScreen? {
+        screens.first { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }
+    }
+}
+
 extension CGRect {
     /// Converts a rect between AX/CoreGraphics (top-left origin) and Cocoa (bottom-left origin) global coordinates.
     var flippedToCocoa: CGRect {

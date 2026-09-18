@@ -11,6 +11,13 @@ A menu-bar app that adds these controls to macOS Mission Control:
 - **Return** opens the selected window
 - **Space** previews the window as usual, and the (x) buttons hide while the preview is open
 
+Spaces controls, also inside Mission Control:
+
+- **⌘N** creates a new Space on the display under the mouse
+- **⌘1 … ⌘9**, **⌘0** go to Space 1–10 on the display under the mouse. This closes Mission Control.
+- **⌘← / ⌘→** move the selected window to the previous or next Space. There is no public API for this. SpaceControl uses SkyLight's private `SLSBridgedMoveWindowsToManagedSpaceOperation`, which works on macOS 27, and may break in future macOS versions.
+- **⌘⌃← / ⌘⌃→** move the selected window to the previous or next Space and switch to that Space, with the window still selected. Press it again to carry the window further, for example from Space 1 to Space 3.
+
 ## Requirements
 
 Tested on macOS 27. The app reads Mission Control through its accessibility tree,

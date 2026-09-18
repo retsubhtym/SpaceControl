@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		353F1E9D10347CBE1F478A5D /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740A5388FA46EBEAB17275 /* Accessibility.swift */; };
+		48F99C802D930B3A38F90D9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71E2E485479781CBF5CCC116 /* Assets.xcassets */; };
 		80CC2A72962A15C5F322CEE1 /* MissionControlMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD292C4BDA6067072742DBA /* MissionControlMonitor.swift */; };
 		82E416F73E6C99F08E2E3C3F /* OverlayViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523138E6095D5DABB17B227E /* OverlayViews.swift */; };
 		83A3B398B3359F030C7164C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E38DC81969E8C1E25A284D /* Log.swift */; };
 		88B429179997B08644C4A249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D56AD648E8E998AA08DB99 /* AppDelegate.swift */; };
 		8F9A2C1D4E3BC9DEDCA0F2F2 /* WindowResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A36383286F78981FD576BD /* WindowResolver.swift */; };
 		945868A9CF31C251FB051A6F /* MissionControlController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2E2F2DCD8381BBFA1FE407 /* MissionControlController.swift */; };
+		A9B3085788BF1B27FBE9CD71 /* Spaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED365AED1435382F7713F302 /* Spaces.swift */; };
 		D46B5D658FD92CE2918F8DEE /* KeyboardInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBF0D5CC8FDF80D8F613211 /* KeyboardInterceptor.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,9 +28,11 @@
 		523138E6095D5DABB17B227E /* OverlayViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViews.swift; sourceTree = "<group>"; };
 		574499085EAFEDB98D3D0FC0 /* SpaceControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6720002C787AF0379C099AFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		71E2E485479781CBF5CCC116 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4A36383286F78981FD576BD /* WindowResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowResolver.swift; sourceTree = "<group>"; };
 		C6D56AD648E8E998AA08DB99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9E38DC81969E8C1E25A284D /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		ED365AED1435382F7713F302 /* Spaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaces.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -37,6 +41,7 @@
 			children = (
 				2F740A5388FA46EBEAB17275 /* Accessibility.swift */,
 				C6D56AD648E8E998AA08DB99 /* AppDelegate.swift */,
+				71E2E485479781CBF5CCC116 /* Assets.xcassets */,
 				6720002C787AF0379C099AFD /* Info.plist */,
 				0BBF0D5CC8FDF80D8F613211 /* KeyboardInterceptor.swift */,
 				C9E38DC81969E8C1E25A284D /* Log.swift */,
@@ -44,6 +49,7 @@
 				4CD292C4BDA6067072742DBA /* MissionControlMonitor.swift */,
 				523138E6095D5DABB17B227E /* OverlayViews.swift */,
 				00B0FC7D50FD0B1E94F8409C /* SpaceControl.entitlements */,
+				ED365AED1435382F7713F302 /* Spaces.swift */,
 				C4A36383286F78981FD576BD /* WindowResolver.swift */,
 			);
 			path = SpaceControl;
@@ -73,6 +79,7 @@
 			buildConfigurationList = DE978FBBF1E9711F53652AD0 /* Build configuration list for PBXNativeTarget "SpaceControl" */;
 			buildPhases = (
 				0B19D36B3CD18ED6D7C23B01 /* Sources */,
+				B79F2744D4AC1048ED1FC90D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -119,6 +126,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		B79F2744D4AC1048ED1FC90D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48F99C802D930B3A38F90D9C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0B19D36B3CD18ED6D7C23B01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -131,6 +149,7 @@
 				945868A9CF31C251FB051A6F /* MissionControlController.swift in Sources */,
 				80CC2A72962A15C5F322CEE1 /* MissionControlMonitor.swift in Sources */,
 				82E416F73E6C99F08E2E3C3F /* OverlayViews.swift in Sources */,
+				A9B3085788BF1B27FBE9CD71 /* Spaces.swift in Sources */,
 				8F9A2C1D4E3BC9DEDCA0F2F2 /* WindowResolver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

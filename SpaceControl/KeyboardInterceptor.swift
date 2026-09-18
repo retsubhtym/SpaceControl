@@ -21,6 +21,9 @@ final class KeyboardInterceptor {
         static let keypadEnter: Int64 = 76
         static let space: Int64 = 49
         static let escape: Int64 = 53
+        static let n: Int64 = 45
+        /// Top-row digit key codes mapped to Space numbers (⌘0 is Space 10).
+        static let digits: [Int64: Int] = [18: 1, 19: 2, 20: 3, 21: 4, 23: 5, 22: 6, 26: 7, 28: 8, 25: 9, 29: 10]
     }
 
     init(controller: MissionControlController) {
@@ -73,6 +76,12 @@ final class KeyboardInterceptor {
             DispatchQueue.main.async { self.controller.endPreview() }
             return Unmanaged.passUnretained(event)
         }
+        // Native Space switching (⌃←/→, ⌃1…): hide the (x) buttons right away until the new Space settles.
+        if modifiers == [.maskControl],
+           keyCode == KeyCode.left || keyCode == KeyCode.right || KeyCode.digits[keyCode] != nil {
+            DispatchQueue.main.async { self.controller.spaceSwitchWillBegin() }
+            return Unmanaged.passUnretained(event)
+        }
 
         let action: (() -> Void)?
         switch (keyCode, modifiers) {
@@ -84,6 +93,19 @@ final class KeyboardInterceptor {
             action = controller.hideSelectedApp
         case (KeyCode.q, [.maskCommand]):
             action = controller.quitSelectedApp
+        case (KeyCode.n, [.maskCommand]):
+            action = controller.createSpace
+        case (KeyCode.left, [.maskCommand]):
+            action = { self.controller.moveSelectedWindowToSpace(.left) }
+        case (KeyCode.right, [.maskCommand]):
+            action = { self.controller.moveSelectedWindowToSpace(.right) }
+        case (KeyCode.left, [.maskCommand, .maskControl]):
+            action = { self.controller.moveSelectedWindowToSpace(.left, follow: true) }
+        case (KeyCode.right, [.maskCommand, .maskControl]):
+            action = { self.controller.moveSelectedWindowToSpace(.right, follow: true) }
+        case (_, [.maskCommand]) where KeyCode.digits[keyCode] != nil:
+            let number = KeyCode.digits[keyCode]!
+            action = { self.controller.selectSpace(number) }
         case (KeyCode.left, []), (KeyCode.h, []):
             action = { self.controller.moveSelection(.left) }
         case (KeyCode.right, []), (KeyCode.l, []):
