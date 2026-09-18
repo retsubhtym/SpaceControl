@@ -1,0 +1,55 @@
+name: Build macOS 27
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Release build
+    runs-on: xcode-27
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify Xcode and macOS SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          sw_vers
+          xcodebuild -version
+          sdk_version="$(xcrun --sdk macosx --show-sdk-version)"
+          echo "macOS SDK: ${sdk_version}"
+          [[ "${sdk_version}" == 27.* ]]
+
+      - name: Build release app
+        run: |
+          xcodebuild \
+            -project SpaceControl.xcodeproj \
+            -scheme SpaceControl \
+            -configuration Release \
+            -sdk macosx27.0 \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            clean build
+
+      - name: Package app
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent \
+            build/Build/Products/Release/SpaceControl.app \
+            SpaceControl-macOS-27.zip
+
+      - name: Upload app
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpaceControl-macOS-27
+          path: SpaceControl-macOS-27.zip
+          if-no-files-found: error
+          retention-days: 14
