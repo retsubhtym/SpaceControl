@@ -1,0 +1,45 @@
+name: SpaceControl
+options:
+  bundleIdPrefix: local.spacecontrol
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+
+targets:
+  SpaceControl:
+    type: application
+    platform: macOS
+    sources:
+      - path: SpaceControl
+    info:
+      path: SpaceControl/Info.plist
+      properties:
+        CFBundleName: SpaceControl
+        CFBundleDisplayName: SpaceControl
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        LSUIElement: true
+        LSMinimumSystemVersion: "14.0"
+        NSHumanReadableCopyright: ""
+    entitlements:
+      path: SpaceControl/SpaceControl.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: local.spacecontrol.SpaceControl
+        PRODUCT_NAME: SpaceControl
+        GENERATE_INFOPLIST_FILE: NO
+        # Local-only ("Sign to Run Locally") signing: no Apple Developer account required.
+        # Set on the target so it overrides XcodeGen's default "Apple Development" identity.
+        # To keep the Accessibility permission across rebuilds, create a self-signed
+        # code-signing certificate in Keychain Access and put its name here.
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        DEVELOPMENT_TEAM: ""
+        ENABLE_HARDENED_RUNTIME: NO
