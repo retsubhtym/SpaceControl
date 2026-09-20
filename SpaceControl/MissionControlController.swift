@@ -82,9 +82,16 @@ final class MissionControlController {
         refreshSoon()
     }
 
+    /// Opens the selected window by clicking its thumbnail, exactly as the mouse would:
+    /// Mission Control then closes and focuses the window itself.
     func openSelected() {
         guard let target = thumbnailUnderMouse() else { return }
-        WindowResolver.open(target)
+        let point = Self.pointerPoint(on: target)
+        let source = CGEventSource(stateID: .hidSystemState)
+        for type in [CGEventType.leftMouseDown, .leftMouseUp] {
+            CGEvent(mouseEventSource: source, mouseType: type, mouseCursorPosition: point, mouseButton: .left)?
+                .post(tap: .cghidEventTap)
+        }
     }
 
     // MARK: - Spaces
@@ -139,9 +146,8 @@ final class MissionControlController {
             let targetSpaceID = spaceIDs[targetIndex]
             followedWindow = (windowID, targetSpaceID, Date().addingTimeInterval(2))
             spaceSwitchWillBegin()
-            // Let the asynchronous move reach WindowManager before asking Mission Control to follow it. Posting
-            // its native Control-arrow shortcut keeps Mission Control open; the private SetCurrentSpace operation
-            // must not be used because it desynchronizes WindowManager/Dock from the window server.
+            // Let the asynchronous move reach WindowManager before switching Space with Mission Control's own
+            // Control-arrow shortcut, which keeps Mission Control open.
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
                 guard self?.isActive == true else { return }
                 Self.postSpaceSwitch(direction)
@@ -210,7 +216,9 @@ final class MissionControlController {
                 best = (thumbnail, score)
             }
         }
-        if let best { hover(best.thumbnail) }
+        // Nothing in that direction (e.g. a Space with a single window): re-assert the current one, so it is
+        // highlighted even when the cursor happens to sit on it without Mission Control having drawn the highlight.
+        hover(best?.thumbnail ?? current)
     }
 
     private func close(_ target: Thumbnail) {
@@ -225,7 +233,18 @@ final class MissionControlController {
     /// Moves the cursor onto the thumbnail with a real mouse-moved event,
     /// so Mission Control draws its own hover highlight there.
     private func hover(_ thumbnail: Thumbnail) {
-        CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: Self.pointerPoint(on: thumbnail), mouseButton: .left)?
+        let point = Self.pointerPoint(on: thumbnail)
+        // Mission Control highlights on movement: when the cursor is already there, nudge it first.
+        let target = CGRect(origin: point, size: .zero).flippedToCocoa.origin
+        let cursor = NSEvent.mouseLocation
+        if abs(cursor.x - target.x) < 2, abs(cursor.y - target.y) < 2 {
+            post(.mouseMoved, at: CGPoint(x: point.x + 2, y: point.y + 2))
+        }
+        post(.mouseMoved, at: point)
+    }
+
+    private func post(_ type: CGEventType, at point: CGPoint) {
+        CGEvent(mouseEventSource: nil, mouseType: type, mouseCursorPosition: point, mouseButton: .left)?
             .post(tap: .cghidEventTap)
     }
 

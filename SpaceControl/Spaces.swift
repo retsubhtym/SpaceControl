@@ -74,13 +74,11 @@ enum SpacesInfo {
     }
 }
 
-/// Changes Spaces through SkyLight's "bridged" window-management operations.
+/// Moves windows between Spaces through SkyLight's "bridged" window-management operations.
 ///
-/// There is no public API for this. On macOS 27 the direct SkyLight calls (`SLSMoveWindowsToManagedSpace`,
-/// the compat-ID workaround, add/remove) are ignored for normal apps, and yabai's
-/// `SLSPerformAsynchronousBridgedWindowManagementOperation` no longer exists. What works is creating the
-/// operation object and calling its `-performWithWMBridgeDelegate`, which hands the request to the system's
-/// window-management bridge. Operations run asynchronously.
+/// There is no public API for this, and on macOS 27 the direct SkyLight calls are ignored for normal apps.
+/// What works is creating the operation object and calling its `-performWithWMBridgeDelegate`, which hands the
+/// request to the system's window-management bridge. The move happens asynchronously.
 enum SpaceMover {
     /// Moves the window to `spaceID`.
     static func moveWindow(_ windowID: CGWindowID, toSpace spaceID: UInt64) -> Bool {
@@ -89,7 +87,6 @@ enum SpaceMover {
     }
 
     /// Runs `[[className alloc] <initializer>object spaceID:spaceID]` and `-performWithWMBridgeDelegate`.
-    /// Both operations used here take an object and a 64-bit Space ID.
     private static func perform(_ className: String, _ initializer: String, _ object: NSObject, _ spaceID: UInt64) -> Bool {
         let allocSelector = NSSelectorFromString("alloc")
         let initSelector = NSSelectorFromString(initializer)

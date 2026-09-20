@@ -55,12 +55,6 @@ enum WindowResolver {
         return app
     }
 
-    /// Opens the window: lets Mission Control handle it like a click.
-    static func open(_ thumbnail: Thumbnail) {
-        let result = AXUIElementPerformAction(thumbnail.element, kAXPressAction as CFString)
-        if result != .success { Log.error("open: pressing the thumbnail failed (\(result.rawValue))") }
-    }
-
     private static func resolve(_ thumbnail: Thumbnail) -> AXUIElement? {
         guard let pid = ownerPID(of: thumbnail) else { return nil }
         let appElement = AXUIElementCreateApplication(pid)
