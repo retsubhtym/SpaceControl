@@ -2,6 +2,10 @@ name: Build macOS 27
 
 on:
   push:
+    branches:
+      - main
+    tags:
+      - "v*"
   pull_request:
   workflow_dispatch:
 
@@ -53,3 +57,34 @@ jobs:
           path: SpaceControl-macOS-27.zip
           if-no-files-found: error
           retention-days: 14
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download built app
+        uses: actions/download-artifact@v4
+        with:
+          name: SpaceControl-macOS-27
+          path: release
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          version="${RELEASE_TAG#v}"
+
+          gh release create "${RELEASE_TAG}" \
+            "release/SpaceControl-macOS-27.zip#SpaceControl for macOS 27" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --verify-tag \
+            --title "SpaceControl ${version}" \
+            --generate-notes \
+            --prerelease
