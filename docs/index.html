@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpaceControl — extra controls for Mission Control</title>
+  <meta name="description" content="SpaceControl adds fast keyboard and mouse controls to macOS Mission Control: close, navigate, minimize, hide, quit windows, and move them between Spaces.">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <img src="assets/icon.png" alt="" class="brand-icon">
+        <span>SpaceControl</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/retsubhtym/SpaceControl">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="top" class="hero">
+      <img src="assets/icon.png" alt="SpaceControl app icon" class="hero-icon">
+      <h1>Extra controls for Mission Control.</h1>
+      <p class="hero-sub">
+        A tiny menu-bar app that makes macOS Mission Control fast to drive from the keyboard —
+        close, navigate, minimize, hide, quit and re-order windows, and move them between Spaces,
+        without leaving the trackpad or keyboard.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://github.com/retsubhtym/SpaceControl/releases/latest/download/SpaceControl-macOS-27.zip">
+          Download for macOS
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/retsubhtym/SpaceControl">
+          View on GitHub
+        </a>
+      </div>
+      <p class="hero-note">Free &amp; open source · MIT licensed · macOS 14+</p>
+
+      <div class="media-frame hero-media">
+        <video src="assets/gifs/intro.mp4" autoplay muted loop playsinline preload="auto"
+               aria-label="SpaceControl in action inside Mission Control"></video>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <h2>Window controls</h2>
+      <p class="section-sub">Everything you need to triage windows in Mission Control without touching the mouse.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <img src="assets/gifs/x.png" alt="Close (×) button on a window thumbnail in Mission Control">
+          </div>
+          <h3>Close from anywhere</h3>
+          <p>Every window thumbnail gets an <kbd>×</kbd> close button. Or just hover a window and press <kbd>⌘W</kbd>.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <video src="assets/gifs/hjkl.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Moving the selection between windows with the arrow keys and hjkl"></video>
+          </div>
+          <h3>Keyboard navigation</h3>
+          <p>Move the selection with <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> or <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>. The cursor — and Mission Control's own hover highlight — follows your selection.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <video src="assets/gifs/minimize.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Minimizing the selected window with ⌘M"></video>
+          </div>
+          <h3>Minimize, hide, quit</h3>
+          <p><kbd>⌘M</kbd> minimizes the selected window, <kbd>⌘H</kbd> hides its app, and <kbd>⌘Q</kbd> quits its app (apps can still prompt to save).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <video src="assets/gifs/space.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Previewing the selected window with Space"></video>
+          </div>
+          <h3>Open &amp; preview</h3>
+          <p><kbd>Return</kbd> opens the selected window. <kbd>Space</kbd> previews it as usual — close buttons hide automatically during preview.</p>
+        </div>
+      </div>
+
+      <h2>Spaces controls</h2>
+      <p class="section-sub">Create, jump to, and move windows between Spaces without leaving Mission Control.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <video src="assets/gifs/newSpace.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Creating a new Space with ⌘N"></video>
+          </div>
+          <h3>New Space</h3>
+          <p><kbd>⌘N</kbd> creates a new Space on the display under your mouse.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <video src="assets/gifs/jump2Space.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Jumping to a Space with ⌘1–⌘0"></video>
+          </div>
+          <h3>Jump to a Space</h3>
+          <p><kbd>⌘1</kbd>…<kbd>⌘9</kbd>, <kbd>⌘0</kbd> jump straight to Space 1–10 on the display under your mouse and close Mission Control.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="media-frame card-media">
+            <video src="assets/gifs/move.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Moving the selected window to another Space with ⌘← / ⌘→"></video>
+          </div>
+          <h3>Move a window to a Space</h3>
+          <p><kbd>⌘←</kbd> / <kbd>⌘→</kbd> moves the selected window to the previous or next Space and keeps it selected.</p>
+        </div>
+
+        <!-- Hidden until move-and-follow works reliably.
+        <div class="feature-card">
+          <div class="media-frame" data-placeholder="true">
+            <span class="media-placeholder-label">GIF: ⌘⌃← / ⌘⌃→ moving and switching to a Space, repeated</span>
+          </div>
+          <h3>Move and follow</h3>
+          <p><kbd>⌘⌃←</kbd> / <kbd>⌘⌃→</kbd> moves the selected window and switches to that Space with it. Press again to carry it further.</p>
+        </div>
+        -->
+      </div>
+
+      <p class="section-note">
+        Every shortcut above is customizable — menu-bar icon → <strong>Settings…</strong> (or <kbd>⌘,</kbd>) — which also
+        lets you hide the menu-bar icon entirely.
+      </p>
+    </section>
+
+    <section id="requirements" class="requirements">
+      <h2>Requirements &amp; permissions</h2>
+      <ul class="req-list">
+        <li>macOS 14 or later. SpaceControl is actively tested on macOS 27 — it reads Mission Control's accessibility
+          tree via a private API, so behavior on other versions isn't guaranteed and may change with future macOS
+          releases.</li>
+        <li>SpaceControl needs <strong>Accessibility</strong> access: System Settings → Privacy &amp; Security →
+          Accessibility. The app will prompt you and can open this pane for you from its menu.</li>
+        <li>Released builds are signed ad-hoc. If you build from source, macOS re-signs the app on every rebuild, so
+          you may need to re-grant Accessibility access after each local build.</li>
+      </ul>
+    </section>
+
+    <section id="install" class="install">
+      <h2>Install</h2>
+      <div class="install-grid">
+        <div class="install-card">
+          <h3>Direct download</h3>
+          <p>Grab the latest signed build straight from GitHub Releases.</p>
+          <a class="btn btn-primary" href="https://github.com/retsubhtym/SpaceControl/releases/latest/download/SpaceControl-macOS-27.zip">
+            Download SpaceControl.zip
+          </a>
+        </div>
+        <div class="install-card">
+          <h3>All releases</h3>
+          <p>Browse release notes and previous versions.</p>
+          <a class="btn btn-secondary" href="https://github.com/retsubhtym/SpaceControl/releases">
+            Open Releases page
+          </a>
+        </div>
+        <div class="install-card">
+          <h3>Build from source</h3>
+          <p>Requires Xcode and <a href="https://github.com/yonaskolb/XcodeGen">XcodeGen</a>.</p>
+          <pre class="code-block"><code>xcodegen generate
+open SpaceControl.xcodeproj
+xcodebuild -scheme SpaceControl \
+  -configuration Debug \
+  -derivedDataPath build build</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/icon.png" alt="" class="brand-icon">
+        <span>SpaceControl</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/retsubhtym/SpaceControl">GitHub</a>
+        <a href="https://github.com/retsubhtym/SpaceControl/releases">Releases</a>
+        <a href="https://github.com/retsubhtym/SpaceControl/blob/main/LICENSE">License (MIT)</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

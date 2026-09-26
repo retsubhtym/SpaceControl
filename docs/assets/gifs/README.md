@@ -1,0 +1,1 @@
+Drop recorded GIFs (or MP4s) here and reference them from `docs/index.html`'s `.media-frame` placeholders (replace the placeholder `<span>` with an `<img src="assets/gifs/....gif" alt="...">` or a `<video>` tag for MP4).

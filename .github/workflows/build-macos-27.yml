@@ -22,6 +22,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Fetch app assets from LFS
+        run: git lfs pull --include "SpaceControl/Assets.xcassets/**"
+
       - name: Verify Xcode and macOS SDK
         shell: bash
         run: |
@@ -86,5 +89,4 @@ jobs:
             --repo "${GITHUB_REPOSITORY}" \
             --verify-tag \
             --title "SpaceControl ${version}" \
-            --generate-notes \
-            --prerelease
+            --generate-notes
