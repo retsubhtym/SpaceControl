@@ -45,7 +45,7 @@
       <p class="hero-note">Free &amp; open source · MIT licensed · macOS 14+</p>
 
       <div class="media-frame hero-media">
-        <video src="assets/gifs/intro.mp4" autoplay muted loop playsinline preload="auto"
+        <video src="assets/gifs/intro.mp4" poster="assets/gifs/intro.jpg" autoplay muted loop playsinline preload="auto"
                aria-label="SpaceControl in action inside Mission Control"></video>
       </div>
     </section>
@@ -65,7 +65,7 @@
 
         <div class="feature-card">
           <div class="media-frame card-media">
-            <video src="assets/gifs/hjkl.mp4" autoplay muted loop playsinline preload="metadata"
+            <video src="assets/gifs/hjkl.mp4" poster="assets/gifs/hjkl.jpg" data-autoplay muted loop playsinline preload="none"
                    aria-label="Moving the selection between windows with the arrow keys and hjkl"></video>
           </div>
           <h3>Keyboard navigation</h3>
@@ -74,7 +74,7 @@
 
         <div class="feature-card">
           <div class="media-frame card-media">
-            <video src="assets/gifs/minimize.mp4" autoplay muted loop playsinline preload="metadata"
+            <video src="assets/gifs/minimize.mp4" poster="assets/gifs/minimize.jpg" data-autoplay muted loop playsinline preload="none"
                    aria-label="Minimizing the selected window with ⌘M"></video>
           </div>
           <h3>Minimize, hide, quit</h3>
@@ -83,7 +83,7 @@
 
         <div class="feature-card">
           <div class="media-frame card-media">
-            <video src="assets/gifs/space.mp4" autoplay muted loop playsinline preload="metadata"
+            <video src="assets/gifs/space.mp4" poster="assets/gifs/space.jpg" data-autoplay muted loop playsinline preload="none"
                    aria-label="Previewing the selected window with Space"></video>
           </div>
           <h3>Open &amp; preview</h3>
@@ -97,7 +97,7 @@
       <div class="feature-grid">
         <div class="feature-card">
           <div class="media-frame card-media">
-            <video src="assets/gifs/newSpace.mp4" autoplay muted loop playsinline preload="metadata"
+            <video src="assets/gifs/newSpace.mp4" poster="assets/gifs/newSpace.jpg" data-autoplay muted loop playsinline preload="none"
                    aria-label="Creating a new Space with ⌘N"></video>
           </div>
           <h3>New Space</h3>
@@ -106,7 +106,7 @@
 
         <div class="feature-card">
           <div class="media-frame card-media">
-            <video src="assets/gifs/jump2Space.mp4" autoplay muted loop playsinline preload="metadata"
+            <video src="assets/gifs/jump2Space.mp4" poster="assets/gifs/jump2Space.jpg" data-autoplay muted loop playsinline preload="none"
                    aria-label="Jumping to a Space with ⌘1–⌘0"></video>
           </div>
           <h3>Jump to a Space</h3>
@@ -115,7 +115,7 @@
 
         <div class="feature-card">
           <div class="media-frame card-media">
-            <video src="assets/gifs/move.mp4" autoplay muted loop playsinline preload="metadata"
+            <video src="assets/gifs/move.mp4" poster="assets/gifs/move.jpg" data-autoplay muted loop playsinline preload="none"
                    aria-label="Moving the selected window to another Space with ⌘← / ⌘→"></video>
           </div>
           <h3>Move a window to a Space</h3>
@@ -195,6 +195,27 @@ xcodebuild -scheme SpaceControl \
       </div>
     </div>
   </footer>
+
+  <script>
+    // Card videos load and play only while on screen.
+    (function () {
+      var videos = document.querySelectorAll("video[data-autoplay]");
+      if (!("IntersectionObserver" in window)) {
+        videos.forEach(function (v) { v.play(); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.play().catch(function () {});
+          } else {
+            entry.target.pause();
+          }
+        });
+      }, { rootMargin: "200px 0px" });
+      videos.forEach(function (v) { observer.observe(v); });
+    })();
+  </script>
 
 </body>
 </html>
