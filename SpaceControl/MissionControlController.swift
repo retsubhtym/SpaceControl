@@ -198,6 +198,11 @@ final class MissionControlController {
             return
         }
 
+        if direction == .up || direction == .down, let target = adjacentRowTarget(from: current, direction) {
+            hover(target)
+            return
+        }
+
         let from = CGPoint(x: current.frame.midX, y: current.frame.midY)
         var best: (thumbnail: Thumbnail, score: CGFloat)?
         for thumbnail in thumbnails where !thumbnail.isSameElement(as: current) {
@@ -219,6 +224,29 @@ final class MissionControlController {
         // Nothing in that direction (e.g. a Space with a single window): re-assert the current one, so it is
         // highlighted even when the cursor happens to sit on it without Mission Control having drawn the highlight.
         hover(best?.thumbnail ?? current)
+    }
+
+    /// Up/down move to the adjacent row, then to the thumbnail in it that is closest horizontally.
+    /// Rows are grouped by vertical overlap, because windows of one row can have different heights (and so
+    /// different centers), and a distance score alone can skip a short row.
+    private func adjacentRowTarget(from current: Thumbnail, _ direction: Direction) -> Thumbnail? {
+        var rows: [[Thumbnail]] = []
+        for thumbnail in thumbnails.sorted(by: { $0.frame.midY < $1.frame.midY }) {
+            // AX coordinates: y grows downwards. Same row = each one's center lies within the other's extent.
+            let index = rows.firstIndex { row in
+                row.contains { member in
+                    member.frame.minY <= thumbnail.frame.midY && thumbnail.frame.midY <= member.frame.maxY
+                        && thumbnail.frame.minY <= member.frame.midY && member.frame.midY <= thumbnail.frame.maxY
+                }
+            }
+            if let index { rows[index].append(thumbnail) } else { rows.append([thumbnail]) }
+        }
+        guard let currentRow = rows.firstIndex(where: { $0.contains { $0.isSameElement(as: current) } }) else { return nil }
+        let targetRow = direction == .down ? currentRow + 1 : currentRow - 1
+        guard rows.indices.contains(targetRow) else { return nil }
+        return rows[targetRow].min {
+            abs($0.frame.midX - current.frame.midX) < abs($1.frame.midX - current.frame.midX)
+        }
     }
 
     private func close(_ target: Thumbnail) {
