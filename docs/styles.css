@@ -440,3 +440,27 @@ section:last-of-type {
     padding: 48px 0;
   }
 }
+
+/* Documentation uses the same colors and typography as the landing page. */
+.guide {
+  max-width: 760px;
+  padding: 72px 0;
+}
+
+.guide h1 { font-size: 2.2rem; }
+.guide h2 { margin-top: 2em; font-size: 1.5rem; }
+.guide p, .guide li { color: var(--text-muted); }
+.guide li { margin-bottom: 0.5em; }
+.guide code { overflow-wrap: anywhere; }
+
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (max-width: 720px) {
+  .nav-inner, .nav-links, .footer-links { flex-wrap: wrap; }
+  .guide { padding: 48px 0; }
+  .guide h1 { font-size: 1.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

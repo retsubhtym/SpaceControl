@@ -1,0 +1,17 @@
+# SpaceControl
+
+> Free, open-source macOS menu-bar app extending Mission Control with keyboard navigation, window controls, and Spaces shortcuts.
+
+## Documentation
+
+- [Homepage](https://retsubhtym.github.io/SpaceControl/)
+- [Documentation index](https://retsubhtym.github.io/SpaceControl/#guides)
+- [How to Navigate macOS Mission Control with Keyboard Shortcuts](https://retsubhtym.github.io/SpaceControl/guides/keyboard-navigation.html)
+- [How to Manage and Close Windows in macOS Mission Control](https://retsubhtym.github.io/SpaceControl/guides/window-management.html)
+- [How to Manage macOS Spaces and Move Windows Between Desktops](https://retsubhtym.github.io/SpaceControl/guides/spaces.html)
+- [SpaceControl Architecture - Extending macOS Mission Control](https://retsubhtym.github.io/SpaceControl/guides/architecture.html)
+
+## Project
+
+- [Source repository](https://github.com/retsubhtym/SpaceControl)
+- [Release downloads](https://github.com/retsubhtym/SpaceControl/releases)

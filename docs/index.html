@@ -3,8 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SpaceControl — extra controls for Mission Control</title>
-  <meta name="description" content="SpaceControl adds fast keyboard and mouse controls to macOS Mission Control: close, navigate, minimize, hide, quit windows, and move them between Spaces.">
+  <title>SpaceControl - Mission Control &amp; Spaces Manager for macOS</title>
+  <meta name="description" content="SpaceControl is a free, open-source macOS utility that extends Mission Control with keyboard navigation, window controls, and Spaces management.">
+  <link rel="canonical" href="https://retsubhtym.github.io/SpaceControl/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SpaceControl - Mission Control &amp; Spaces Manager for macOS">
+  <meta property="og:description" content="SpaceControl is a free, open-source macOS utility that extends Mission Control with keyboard navigation, window controls, and Spaces management.">
+  <meta property="og:url" content="https://retsubhtym.github.io/SpaceControl/">
+  <meta property="og:site_name" content="SpaceControl">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SpaceControl - Mission Control &amp; Spaces Manager for macOS">
+  <meta name="twitter:description" content="SpaceControl is a free, open-source macOS utility that extends Mission Control with keyboard navigation, window controls, and Spaces management.">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://retsubhtym.github.io/SpaceControl/#website", "url": "https://retsubhtym.github.io/SpaceControl/", "name": "SpaceControl"}, {"@type": "WebPage", "@id": "https://retsubhtym.github.io/SpaceControl/#webpage", "url": "https://retsubhtym.github.io/SpaceControl/", "name": "SpaceControl - Mission Control & Spaces Manager for macOS", "description": "SpaceControl is a free, open-source macOS utility that extends Mission Control with keyboard navigation, window controls, and Spaces management.", "isPartOf": {"@id": "https://retsubhtym.github.io/SpaceControl/#website"}, "about": {"@id": "https://retsubhtym.github.io/SpaceControl/#software"}}, {"@type": "SoftwareApplication", "@id": "https://retsubhtym.github.io/SpaceControl/#software", "name": "SpaceControl", "description": "SpaceControl is a free, open-source macOS utility that extends Mission Control with keyboard navigation, window controls, and Spaces management.", "url": "https://retsubhtym.github.io/SpaceControl/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS", "isAccessibleForFree": true, "codeRepository": "https://github.com/retsubhtym/SpaceControl", "downloadUrl": "https://github.com/retsubhtym/SpaceControl/releases", "license": "https://github.com/retsubhtym/SpaceControl/blob/main/LICENSE", "featureList": ["Mission Control keyboard navigation", "Close and minimize windows", "Create and switch Spaces", "Move windows between Spaces"]}]}</script>
   <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -16,10 +26,11 @@
         <img src="assets/icon.png" alt="" class="brand-icon">
         <span>SpaceControl</span>
       </a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="#features">Features</a>
         <a href="#requirements">Requirements</a>
         <a href="#install">Install</a>
+        <a href="guides/keyboard-navigation.html">Guides</a>
         <a href="https://github.com/retsubhtym/SpaceControl">GitHub</a>
       </nav>
     </div>
@@ -28,11 +39,9 @@
   <main>
     <section id="top" class="hero">
       <img src="assets/icon.png" alt="SpaceControl app icon" class="hero-icon">
-      <h1>Extra controls for Mission Control.</h1>
+      <h1>SpaceControl: extra controls for Mission Control.</h1>
       <p class="hero-sub">
-        A tiny menu-bar app that makes macOS Mission Control fast to drive from the keyboard —
-        close, navigate, minimize, hide, quit and re-order windows, and move them between Spaces,
-        without leaving the trackpad or keyboard.
+        SpaceControl is a free, open-source macOS menu-bar app that extends Mission Control with keyboard navigation, window controls, and shortcuts for managing Spaces. Close or minimize windows, navigate thumbnails, and move windows between Spaces from Mission Control.
       </p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="https://github.com/retsubhtym/SpaceControl/releases/latest/download/SpaceControl-macOS-27.zip">
@@ -42,7 +51,7 @@
           View on GitHub
         </a>
       </div>
-      <p class="hero-note">Free &amp; open source · MIT licensed · macOS 14+</p>
+      <p class="hero-note">Free &amp; open source · MIT licensed · tested on macOS 27</p>
 
       <div class="media-frame hero-media">
         <video src="assets/gifs/intro.mp4" poster="assets/gifs/intro.jpg" autoplay muted loop playsinline preload="auto"
@@ -57,7 +66,7 @@
       <div class="feature-grid">
         <div class="feature-card">
           <div class="media-frame card-media">
-            <img src="assets/gifs/x.png" alt="Close (×) button on a window thumbnail in Mission Control">
+            <img src="assets/gifs/x.png" alt="Close (×) button on a window thumbnail in Mission Control" width="482" height="322" loading="lazy">
           </div>
           <h3>Close from anywhere</h3>
           <p>Every window thumbnail gets an <kbd>×</kbd> close button. Or just hover a window and press <kbd>⌘W</kbd>.</p>
@@ -119,7 +128,7 @@
                    aria-label="Moving the selected window to another Space with ⌘← / ⌘→"></video>
           </div>
           <h3>Move a window to a Space</h3>
-          <p><kbd>⌘←</kbd> / <kbd>⌘→</kbd> moves the selected window to the previous or next Space and keeps it selected.</p>
+          <p><kbd>⌘←</kbd> / <kbd>⌘→</kbd> moves the selected window to the previous or next Space.</p>
         </div>
 
         <!-- Hidden until move-and-follow works reliably.
@@ -139,12 +148,21 @@
       </p>
     </section>
 
+    <section id="guides" class="requirements">
+      <h2>Documentation</h2>
+      <p>Learn how to use SpaceControl in Mission Control and how its macOS integration works.</p>
+      <ul class="req-list">
+        <li><a href="guides/keyboard-navigation.html">Mission Control keyboard navigation</a></li>
+        <li><a href="guides/window-management.html">Manage and close windows in Mission Control</a></li>
+        <li><a href="guides/spaces.html">Manage Spaces and move windows</a></li>
+        <li><a href="guides/architecture.html">SpaceControl architecture</a></li>
+      </ul>
+    </section>
+
     <section id="requirements" class="requirements">
       <h2>Requirements &amp; permissions</h2>
       <ul class="req-list">
-        <li>macOS 14 or later. SpaceControl is actively tested on macOS 27 — it reads Mission Control's accessibility
-          tree via a private API, so behavior on other versions isn't guaranteed and may change with future macOS
-          releases.</li>
+        <li>The project targets macOS 14 or later, but has been tested on macOS 27. SpaceControl relies on Mission Control’s undocumented accessibility structure and private APIs, so other versions may not work and future releases may change behavior.</li>
         <li>SpaceControl needs <strong>Accessibility</strong> access: System Settings → Privacy &amp; Security →
           Accessibility. The app will prompt you and can open this pane for you from its menu.</li>
         <li>Released builds are signed ad-hoc. If you build from source, macOS re-signs the app on every rebuild, so
@@ -190,6 +208,7 @@ xcodebuild -scheme SpaceControl \
       </div>
       <div class="footer-links">
         <a href="https://github.com/retsubhtym/SpaceControl">GitHub</a>
+        <a href="guides/keyboard-navigation.html">Documentation</a>
         <a href="https://github.com/retsubhtym/SpaceControl/releases">Releases</a>
         <a href="https://github.com/retsubhtym/SpaceControl/blob/main/LICENSE">License (MIT)</a>
       </div>
@@ -200,6 +219,10 @@ xcodebuild -scheme SpaceControl \
     // Card videos load and play only while on screen.
     (function () {
       var videos = document.querySelectorAll("video[data-autoplay]");
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.querySelectorAll("video[autoplay]").forEach(function (v) { v.pause(); v.removeAttribute("autoplay"); });
+        return;
+      }
       if (!("IntersectionObserver" in window)) {
         videos.forEach(function (v) { v.play(); });
         return;

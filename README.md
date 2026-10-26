@@ -1,6 +1,8 @@
 # SpaceControl — extra controls for Mission Control
 
-A menu-bar app that adds these controls to macOS Mission Control:
+SpaceControl is a free, open-source macOS menu-bar app that extends Mission Control with keyboard navigation, window controls, and Spaces shortcuts. Visit the [website](https://retsubhtym.github.io/SpaceControl/), read the [guides](https://retsubhtym.github.io/SpaceControl/#guides), or download a build from [GitHub Releases](https://github.com/retsubhtym/SpaceControl/releases).
+
+In Mission Control it adds:
 
 - an **(x)** button on every window thumbnail that closes the window
 - **⌘W** closes the selected window, which is the one Mission Control highlights under the mouse
@@ -23,8 +25,12 @@ which also lets you hide the menu-bar icon. While the icon is hidden, launch Spa
 
 ## Requirements
 
-Tested on macOS 27. The app reads Mission Control through its accessibility tree,
+The project targets macOS 14 or later and is tested on macOS 27; other versions may not work. The app reads Mission Control through its accessibility tree,
 which isn't a public API. Other macOS versions arrange that tree differently, so the app may not work there.
+
+## Installation
+
+Download the latest build from [GitHub Releases](https://github.com/retsubhtym/SpaceControl/releases), launch it, and grant Accessibility access as described below.
 
 ## Build
 
