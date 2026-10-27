@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, unquote
 import json
+import re
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1] / 'docs'
@@ -34,7 +35,12 @@ class Page(HTMLParser):
         if tag == 'script' and self.in_json:
             self.blocks.append(self.json); self.in_json = False
 
-pages = sorted(ROOT.rglob('*.html')); canonicals = set()
+def is_google_verification_file(path):
+    return (path.parent == ROOT
+            and re.fullmatch(r'google[0-9a-f]+\.html', path.name) is not None
+            and path.read_text(encoding='utf-8').strip() == f'google-site-verification: {path.name}')
+
+pages = sorted(path for path in ROOT.rglob('*.html') if not is_google_verification_file(path)); canonicals = set()
 for path in pages:
     page = Page(); page.feed(path.read_text(encoding='utf-8'))
     expected = BASE + ('' if path.name == 'index.html' and path.parent == ROOT else path.relative_to(ROOT).as_posix())
